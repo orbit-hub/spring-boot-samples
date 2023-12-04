@@ -12,7 +12,9 @@ public class HelloService {
     @Log
     public String sayHello(String name){
         String result = "你好："+name;
+
         System.out.println(result);
+        int i = 10/0;
         int length = name.length();
         return result + "---" + length;
     }

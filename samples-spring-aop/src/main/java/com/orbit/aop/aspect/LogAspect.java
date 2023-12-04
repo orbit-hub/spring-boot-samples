@@ -19,25 +19,25 @@ public class LogAspect {
     }
 
     //返回通知
-    @AfterReturning(value = "execution(*  com.orbit.aop.service.HelloService.sayHello(..))",returning = "result")
+    @AfterReturning(value = "execution(* com.orbit.aop.service.HelloService.sayHello(..))",returning = "result")
     public void logReturn(JoinPoint joinPoint,Object result){
         String name = joinPoint.getSignature().getName();
-        System.out.println("logReturn()==>"+name+"....【args: "+ Arrays.asList(joinPoint.getArgs()) +"】【result: "+result+"】");
+        System.out.println("返回logReturn()==>"+name+"....【args: "+ Arrays.asList(joinPoint.getArgs()) +"】【result: "+result+"】");
     }
 
 
     //后置通知
-    @After("execution(*  com.orbit.aop.service.HelloService.sayHello(..))")
+    @After("execution(* com.orbit.aop.service.HelloService.sayHello(..))")
     public void logEnd(JoinPoint joinPoint){
         String name = joinPoint.getSignature().getName();
-        System.out.println("logEnd()==>"+name+"....【args: "+ Arrays.asList(joinPoint.getArgs()) +"】");
+        System.out.println("后置logEnd()==>"+name+"....【args: "+ Arrays.asList(joinPoint.getArgs()) +"】");
     }
 
 
     //异常
-    @AfterThrowing(value = "(*  com.orbit.aop.service.HelloService.sayHello(..))",throwing = "e")
+    @AfterThrowing(value = "execution(* com.orbit.aop.service.HelloService.sayHello(..))",throwing = "e")
     public void logError(JoinPoint joinPoint,Exception e){
         String name = joinPoint.getSignature().getName();
-        System.out.println("logError()==>"+name+"....【args: "+ Arrays.asList(joinPoint.getArgs()) +"】【exception: "+e+"】");
+        System.out.println("异常logError()==>"+name+"....【args: "+ Arrays.asList(joinPoint.getArgs()) +"】【exception: "+e+"】");
     }
 }
