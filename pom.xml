@@ -17,6 +17,7 @@
         <module>samples-spring-aop</module>
         <module>samples-boot-swagger</module>
         <module>samples-listener</module>
+        <module>samples-security</module>
     </modules>
     <packaging>pom</packaging>
 
