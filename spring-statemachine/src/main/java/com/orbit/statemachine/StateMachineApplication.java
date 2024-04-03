@@ -19,13 +19,13 @@ public class StateMachineApplication {
 
         orderService.pay(1);
 
-        new Thread("客户线程"){
-            @Override
-            public void run() {
+//        new Thread("客户线程"){
+//            @Override
+//            public void run() {
                 orderService.deliver(1);
                 orderService.receive(1);
-            }
-        }.start();
+//            }
+//        }.start();
 
         orderService.pay(2);
         orderService.deliver(2);
