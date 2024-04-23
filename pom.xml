@@ -20,6 +20,9 @@
         <module>samples-security</module>
         <module>spring-statemachine</module>
         <module>samples-redis</module>
+        <module>samples-swagger</module>
+        <module>samples-logging</module>
+        <module>samples-actuator</module>
     </modules>
     <packaging>pom</packaging>
 

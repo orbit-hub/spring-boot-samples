@@ -1,0 +1,16 @@
+spring:
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      client-type: jedis
+      jedis:
+        pool:
+          enabled: true
+          max-active: 8
+
+        #spring.data.redis.client-type=lettuce
+
+        #设置lettuce的底层参数
+        #spring.data.redis.lettuce.pool.enabled=true
+        #spring.data.redis.lettuce.pool.max-active=8
