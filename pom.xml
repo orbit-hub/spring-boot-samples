@@ -23,6 +23,7 @@
         <module>samples-swagger</module>
         <module>samples-logging</module>
         <module>samples-actuator</module>
+        <module>samples-rabbitmq</module>
     </modules>
     <packaging>pom</packaging>
 
