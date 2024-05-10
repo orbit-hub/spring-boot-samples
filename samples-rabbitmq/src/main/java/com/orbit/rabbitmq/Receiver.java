@@ -14,6 +14,11 @@ public class Receiver {
 		latch.countDown();
 	}
 
+	public void receiveMessageAl(String message) {
+		System.out.println("Received <" + message + ">");
+		latch.countDown();
+	}
+
 	public CountDownLatch getLatch() {
 		return latch;
 	}

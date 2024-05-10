@@ -11,6 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootApplication
 public class MessagingRabbitmqApplication {
 
@@ -18,9 +21,16 @@ public class MessagingRabbitmqApplication {
 
 	static final String queueName = "spring-boot";
 
+	static final String queueAl = "spring-al";
+
 	@Bean
 	Queue queue() {
 		return new Queue(queueName, false);
+	}
+
+	@Bean
+	Queue queueAl() {
+		return new Queue(queueAl, false);
 	}
 
 	@Bean
@@ -30,22 +40,40 @@ public class MessagingRabbitmqApplication {
 
 	@Bean
 	Binding binding(Queue queue, TopicExchange exchange) {
+		BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
+		return BindingBuilder.bind(queue).to(exchange).with("foo.al.#");
+	}
+	@Bean
+	Binding bindingAl(Queue queue, TopicExchange exchange) {
 		return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
 	}
-
 	@Bean
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
-			MessageListenerAdapter listenerAdapter) {
+			MessageListenerAdapter listenerAdapter,MessageListenerAdapter listenerAdapterAl) {
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setConnectionFactory(connectionFactory);
-		container.setQueueNames(queueName);
-		container.setMessageListener(listenerAdapter);
+//		container.setQueueNames(queueName);
+		container.addQueueNames(queueName,queueAl);
+
+//		container.setQueueNames(queueAl);
+		container.setMessageListener(listenerAdapterAl);
 		return container;
 	}
 
 	@Bean
 	MessageListenerAdapter listenerAdapter(Receiver receiver) {
-		return new MessageListenerAdapter(receiver, "receiveMessage");
+		MessageListenerAdapter receiveMessage = new MessageListenerAdapter(receiver, "receiveMessage");
+		Map<String, String> map = new HashMap<>();
+		map.put(queueName,"receiveMessage");
+		map.put(queueAl,"receiveMessageAl");
+
+		receiveMessage.setQueueOrTagToMethodName(map);
+		return receiveMessage;
+	}
+
+	@Bean
+	MessageListenerAdapter listenerAdapterAl(Receiver receiver) {
+		return new MessageListenerAdapter(receiver, "receiveMessageAl");
 	}
 
 	public static void main(String[] args) throws InterruptedException {
