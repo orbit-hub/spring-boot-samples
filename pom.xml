@@ -24,6 +24,8 @@
         <module>samples-logging</module>
         <module>samples-actuator</module>
         <module>samples-rabbitmq</module>
+        <module>samples-spring-statemachine</module>
+        <module>samples-rediscache</module>
     </modules>
     <packaging>pom</packaging>
 
